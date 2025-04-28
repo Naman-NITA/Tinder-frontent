@@ -17,8 +17,9 @@ const EditProfile = ({ user }) => {
   const [showToast, setShowToast] = useState(false);
 
   const saveProfile = async () => {
-    //Clear Errors
+    
     setError("");
+
     try {
       const res = await axios.patch(
         BASE_URL + "/profile/edit",
@@ -41,12 +42,13 @@ const EditProfile = ({ user }) => {
       setError(err.response.data);
     }
   };
+  
 
   return (
     <>
       <div className="flex justify-center my-10">
         <div className="flex justify-center mx-10">
-          <div classNa me="card bg-base-300 w-96 shadow-xl">
+          <div className="card bg-base-300 w-96 shadow-xl">
             <div className="card-body">
               <h2 className="card-title justify-center">Edit Profile</h2>
               <div>
@@ -112,7 +114,7 @@ const EditProfile = ({ user }) => {
                   <input
                     type="text"
                     value={about}
-                    className="input input-bordered w-full max-w-xs"
+                    className="input input-bordered w-full max-w-xs"   
                     onChange={(e) => setAbout(e.target.value)}
                   />
                 </label>
