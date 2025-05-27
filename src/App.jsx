@@ -9,6 +9,7 @@ import appStore from './utils/appStore'
 import Feed from './components/Feed'
 import Connection from './components/Connections'
 import Connections from './components/Connections'
+import Requests from './components/Requests'
 
 
 const App = () => {
@@ -27,6 +28,9 @@ const App = () => {
 
        
         <Route path='/connections' element={<Connections/>} />
+
+
+        <Route path='/requests' element={<Requests/>} />
 
 
         </Route>

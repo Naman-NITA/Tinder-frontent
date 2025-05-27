@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
-
+import { removeUserFromFeed } from "../utils/feedSlice";
 
 const UserCard = ({ user }) => {
   const { _id, firstName, lastName, photoUrl, age, gender, about } = user;
@@ -14,20 +14,15 @@ const UserCard = ({ user }) => {
         {},
         { withCredentials: true }
       );
-      
+      dispatch(removeUserFromFeed(userId));
     } catch (err) {}
   };
 
   return (
     <div className="card bg-base-300 w-96 shadow-xl">
-     <figure className="h-60 overflow-hidden">
-  <img
-    src={user.photoUrl}
-    alt="photo"
-    className="w-full h-full object-cover"
-  />
-</figure>
-
+      <figure>
+        <img src={user.photoUrl} alt="photo" />
+      </figure>
       <div className="card-body">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
         {age && gender && <p>{age + ", " + gender}</p>}
