@@ -1,17 +1,17 @@
-import axios from 'axios';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BASE_URL } from '../utils/constants';
-import { addFeed } from '../utils/feedSlice';
-import UserCard from './UserCard';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from "../utils/constants";
+import { addFeed } from "../utils/feedSlice";
+import UserCard from "./UserCard";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const getFeed = async () => {
     if (feed && feed.length > 0) return;
-
     try {
       const res = await axios.get(BASE_URL + "/feed", { withCredentials: true });
       dispatch(addFeed(res.data));
@@ -24,13 +24,22 @@ const Feed = () => {
     getFeed();
   }, []);
 
+  const handleCardSwipe = () => {
+    setCurrentIndex((prev) => prev + 1); // Automatically move to next card
+  };
+
+  // Check if feed is empty or we reached the end
   if (!feed || feed.length === 0) {
-    return <h1 className='flex justify-center my-10'>No New User Found</h1>;
+    return <h1 className="flex justify-center my-10 text-2xl font-semibold">No New User Found</h1>;
+  }
+
+  if (currentIndex >= feed.length) {
+    return <h1 className="flex justify-center my-10 text-2xl font-semibold">No More Users</h1>;
   }
 
   return (
-    <div className='flex justify-center my-10'>
-      <UserCard user={feed[0]} />
+    <div className="flex justify-center items-center my-10 px-4 h-screen">
+      <UserCard user={feed[currentIndex]} onSwipe={handleCardSwipe} />
     </div>
   );
 };
