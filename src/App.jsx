@@ -10,6 +10,7 @@ import Feed from './components/Feed'
 import Connection from './components/Connections'
 import Connections from './components/Connections'
 import Requests from './components/Requests'
+import Premium from './components/Premium'
 
 
 const App = () => {
@@ -31,6 +32,10 @@ const App = () => {
 
 
         <Route path='/requests' element={<Requests/>} />
+
+        <Route path='/premium' element={<Premium/>} />
+
+         
 
 
         </Route>
